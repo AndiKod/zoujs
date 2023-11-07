@@ -7,9 +7,8 @@ marked.use({
 });
 
 const data = {
-  //rootURL: 'your remote url on Vercel/Netlify once deployed',
-  rootURL: 'http://localhost:3000',
   appName: 'Zou!',
+  rootURL: '',
 };
 
 module.exports = {

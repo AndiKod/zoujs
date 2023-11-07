@@ -75,11 +75,10 @@ The full list of all flavors. If you go with just JS/Tailwind the devDependencie
     "sass": "^1.69.5",
 
     "postcss": "^8.4.31",
-    "autoprefixer": "^10.4.16",
     "postcss-cli": "^10.1.0",
+    "autoprefixer": "^10.4.16",
     "postcss-import": "^15.1.0",
     "postcss-preset-env": "^9.3.0",
-    "precss": "^4.0.0",
     "cssnano": "^6.0.1",
 
     "typescript": "^5.2.2"
