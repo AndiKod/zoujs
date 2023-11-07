@@ -46,6 +46,7 @@ By default it does "everything", so eventually keep only what you're using in yo
     "w-tw": "npx tailwindcss -i ./src/styles/tw-input.css -o ./public/css/tw.css --watch",
 
     "c-static": "copyfiles -u 1 \"./src/static/**/*\" \"public\"",
+    "c-root": "copyfiles -u 1 \"./src/*.ico\" \"./src/*.txt\" \"public\"",
     
     "serve": "browser-sync start --server public --files public",
     "copy": "npm-run-all --parallel c-*",
