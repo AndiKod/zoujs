@@ -1,0 +1,28 @@
+{# Form elements components #}
+{# {% import "src/macros/forms.html" as form %} #}
+
+{% macro label(for, text) %}
+  <label class="form-label"  for="{{for}}">{{ text }}</label>
+  <!-- With Vanilla CSS -->
+  <style>
+    .form-label {
+      font-weight: 600;
+      color: #3e0923;
+    }
+  </style> 
+{% endmacro %}
+
+{% macro input(name, holder, value='', type='text') %}
+  <!-- Or Tailwind classes -->
+  <input type="{{type}}" name="{{name}}" placeholder="{{holder}}"
+  value="{{ value | escape }}" id="{{name}}"
+  class="mb-4 p-2 border border-gray-400 rounded w-full">
+{% endmacro %}
+
+
+{% macro btn(text, action) %}
+  <button @click="{{action}}" class="bg-yellow-800 text-white px-2 py-1 rounded">{{ text }}</button>
+{% endmacro %}
+
+
+ 

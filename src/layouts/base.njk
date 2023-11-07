@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head x-data="data">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block pageTitle %}{% endblock %} {{data.appName}}</title>
+    <meta name="description" content="{% block pageDesc %}{% endblock %}">
+    <link rel="stylesheet" href="{{rootURL}}/css/tw.css">
+    <link rel="stylesheet" href="{{rootURL}}/css/sassy.css">
+    <link rel="stylesheet" href="{{rootURL}}/css/outcss.css">
+    <!--
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pocketbase/0.15.1/pocketbase.umd.js" integrity="sha512-fY0Tp3wfjy2SxoxBYTnTlfsVeZq8J5/5aWY9t12zjGqAaIYPDFgWBvNZjgVkhW2UE3B8BLHsydwhkIGIM+E7yg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    -->
+    {% block headStyles %}{% endblock %}
+    {% block headScripts %}{% endblock %}
+    </head>
+    <body class="h-screen m0" x-data="data" x-init="init()">  
+
+        {% include "src/partials/header.njk" ignore missing %}
+        {% block main %}{% endblock %}
+        {% include "src/partials/footer.njk" ignore missing %}
+        
+    <script src="{{rootURL}}/script.js"></script>
+    </body>
+</html>

@@ -1,0 +1,26 @@
+<a href="#main" class="skip-link">Skip to main</a>
+<header class="flex justify-center gap-4 p-2 shadow bg-light-50 dark:bg-dark-50 text-dark-600 dark:text-light-50">
+  <a href="/"><h1 class="p-2 font-bold" x-text="name" x-up></h1></a>
+  <nav class="mt-2">
+    <em class="text-sm italic"> ...header from <em><code>src/partials/header.njk</code></em>
+  </nav>
+</header>
+
+<!-- TODO: Style this in the real places. -->
+<style>
+  .skip-link {
+  background: #319795;
+  color: #fff;
+  font-weight: 700;
+  left: 50%;
+  padding: 4px;
+  position: absolute;
+  transform: translateY(-100%);
+  transition: transform 0.3s;
+}
+
+.skip-link:focus {
+  transform: translateY(0%);
+}
+</style>
+  

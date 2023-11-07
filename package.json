@@ -1,0 +1,51 @@
+{
+  "name": "zou",
+  "version": "1.0.0",
+  "description": "HTML, CSS, JS & FUN! Simple SSG built like an NPM Scripts tasks runner",
+  "main": "index.js",
+  "scripts": {
+    "b-sass": "sass  --no-source-map src/styles/sass:public/css --style compressed",
+    "b-css": "postcss src/styles/css/input.css -o public/css/outcss.css",
+    "b-tw": "npx tailwindcss -i ./src/styles/tw-input.css -o ./public/css/tw.css --minify",
+    "b-js": "npx esbuild src/scripts/main.js --outfile=public/script.js --bundle --minify",
+    "b-ts": "tsc src/scripts/main.ts --outFile public/tscript.js",
+    "b-pages": "nunjucks-to-html --baseDir src/pages",
+    "w-pages": "onchange \"./src/**/*\" -- npm run b-pages",
+    "w-js": "npx esbuild src/scripts/main.js --outfile=public/script.js --bundle --watch",
+    "w-ts": "tsc src/scripts/main.ts --outFile public/tscript.js --pretty --watch",
+    "w-sass": "sass  --no-source-map --watch src/styles/sass:public/css",
+    "w-css": "postcss src/styles/css/input.css -o public/css/outcss.css --watch",
+    "w-tw": "npx tailwindcss -i ./src/styles/tw-input.css -o ./public/css/tw.css --watch",
+    "c-static": "copyfiles -u 1 \"./src/static/**/*\" \"public\"",
+    "serve": "browser-sync start --server public --files public",
+    "copy": "npm-run-all --parallel c-*",
+    "watch": "npm-run-all --parallel w-*",
+    "build": "npm-run-all copy --parallel b-*",
+    "dev": "npm-run-all copy --parallel b-pages watch serve"
+  },
+  "author": "AndiKod",
+  "license": "ISC",
+  "dependencies": {
+    "alpinejs": "^3.13.2",
+    "pocketbase": "^0.19.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/typography": "^0.5.10",
+    "autoprefixer": "^10.4.16",
+    "browser-sync": "^2.29.3",
+    "cli-markdown": "^3.0.5",
+    "copyfiles": "^2.4.1",
+    "cssnano": "^6.0.1",
+    "dotenv": "^16.3.1",
+    "npm-run-all": "^4.1.5",
+    "nunjucks-to-html": "^1.1.0",
+    "onchange": "^7.1.0",
+    "postcss": "^8.4.31",
+    "postcss-cli": "^10.1.0",
+    "postcss-import": "^15.1.0",
+    "postcss-preset-env": "^9.3.0",
+    "sass": "^1.69.5",
+    "tailwindcss": "^3.3.5",
+    "typescript": "^5.2.2"
+  }
+}

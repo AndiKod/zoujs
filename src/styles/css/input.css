@@ -1,0 +1,14 @@
+@import 'vars';
+
+body {
+  color: #212524;
+  background: #fafafa;
+}
+
+a {
+  color: $foo;
+}
+
+input::placeholder {
+  color: green;
+}

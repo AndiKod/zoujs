@@ -1,0 +1,16 @@
+{% extends "src/layouts/base.njk" %}
+{% block pageTitle %} 👋 {% endblock %}
+{% block pageDesc %}Das ist meine wundersite{% endblock %}
+
+{# Actual visible content on the Page #}
+{% block main %}
+<main class="w-6/12 mx-auto pt-24 text-center"> 
+  <img src="{{rootURL}}static/images/Zou!.png" width="150px" class="mx-auto pb-12">
+  <p class="pb-8 text-lg">Edit me in <em><code>src/pages/index.njk</code></em></p>
+  {% set someMD = "
+
+  [github.com/AndiKod/zou](https://github.com/AndiKod/zou)  
+
+  " %}{{ someMD | md|safe }}
+</main>
+{% endblock %}
