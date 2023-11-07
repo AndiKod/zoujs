@@ -17,6 +17,7 @@
     "w-css": "postcss src/styles/css/input.css -o public/css/outcss.css --watch",
     "w-tw": "npx tailwindcss -i ./src/styles/tw-input.css -o ./public/css/tw.css --watch",
     "c-static": "copyfiles -u 1 \"./src/static/**/*\" \"public\"",
+    "c-root": "copyfiles -u 1 \"./src/favicon.ico\" \"./src/*.txt\"   \"public\"",
     "serve": "browser-sync start --server public --files public",
     "copy": "npm-run-all --parallel c-*",
     "watch": "npm-run-all --parallel w-*",
