@@ -5,8 +5,8 @@ module.exports = {
       stage: 1,
     }),
     require('postcss-import'),
-    /*require('cssnano')({
+    require('cssnano')({
       preset: 'default'
-    })*/
+    })
   ]
 };

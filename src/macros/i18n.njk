@@ -1,0 +1,16 @@
+{# Print translated strings #}
+
+{# Use: {% set lang="fr" %} in a page/layout #}
+{# {% import "src/macros/i18n.njk" as i18n %} #}
+
+<!-- On that page: -->
+{% macro onpage(lang) %}
+  {% if lang == "fr" %}
+    Sur cette page: 
+  {% elif lang == "en" %}
+    On that page:
+  {% elif lang == "" %}
+    On that page:
+  {% endif %}
+{% endmacro %}
+{# i18n.onpage(lang) #}

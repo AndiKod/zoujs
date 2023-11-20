@@ -1,0 +1,31 @@
+// Dark theme
+body.dark {
+  background: linear-gradient(-45deg, #d84d23, #e2af22, #86c232);
+  --primary: #86c232;
+  --secondary: #61892f;
+  --light-dark: #474b4f;
+  --lighter-dark: #6b6e70;
+  --dark: #222629;
+  --light: ivory;
+  --card-bg: rgba(17, 25, 40, 0.2);
+  --card-border: rgba(255, 255, 255, 0.125);
+
+  --bg: #222629;
+  --text: ivory;
+}
+
+// Dark theme
+body.light {
+  background: linear-gradient(-45deg, #f0d2c8, #ede1bd, #dcf0c1);
+  --primary: #86c232;
+  --secondary: #61892f;
+  --light-dark: #474b4f;
+  --lighter-dark: #6b6e70;
+  --dark: #222629;
+  --light: ivory;
+  --card-bg: rgba(255, 255, 255, 0.2);
+  --card-border: rgba(209, 213, 219, 0.3);
+
+  --bg: ivory;
+  --text: #222629;
+}

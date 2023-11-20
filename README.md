@@ -1,107 +1,144 @@
 <p align="center" width="100%">
-    <img width="25%" src="./Zou!.png">
+    <img width="25%" src="./ZouJS.png">
 </p>
 
 # Zou!JS
 
 *— Zou! is a french interjection that stands for: JustDoIt! GoAhead!*
 
-Simple, modular and light StaticSiteGenerator built around NPM Scripts like a tasks runner. Write HTML/Nunjucks/Markdown, CSS/SASS/Tailwind, JS/TS in /src and everyting is compiled on the fly & served on localhost:3000 from /public. 
+A simple and easy to understand SSG setup, with close to zero configuration or dependencies but flexible enough to craft web projects or fire a quick sandbox and try things from a curated list of CDN's, Macros & Mixins. 
 
-The static site in the /public folder is fully rendered at built time from the layouts, partials and interactive templates for improved SEO and more. Folders and files names are totally customisable in the package.json scripts section, so use the defaults or create your own Zou! flavour.
+We can explore, build awesome projects and have quite some fun with "simple things" and web standards.
 
-----
+## Install. Scaffold from CLI or Use the template on Github
 
-Back in the days of PHP, when the cool kids used to implement Smarty or Twig templating just to do `{{ var }}` instead of the native `<?= $var ?>` some devs asked: "Why would you want to use a whole templating library, while PHP can do it natively?". SASS, Tailwind, TypeScript... many tools we are using, ship with their simple CLI tool doing the basic of what we need when designing a website.
+Two diferent ways to start a Zou!JS project:
 
-For many projects ...web Standards HTML/CSS/JS and AlpineJS sugar, eventually a database backend like SupaBase or PocketBase will be enough, straight forward to implement, free to deploy on Vercel/Netlify/etc, and won't get you stuck with "the X way to do things" and dependencies hell.
+### [zou-create](https://www.npmjs.com/package/zou-create), the npx CLI
 
-## Install
+From the terminal with nodejs installed:
 
-The classic, clone / install / run.
+`npx zou-create myWebsite`
 
-`git clone git@github.com:AndiKod/zou.git`
+The CLI will ask for the Author's name, css and scripting preferences then generate all needed folders and files. You can go inside and install the packages.
 
-`cd zou && npm i && npm run dev`
+`cd myWebsite && npm install`
 
+Open the folder in your favorite editor, then:
+
+`npm run dev`
+
+
+To update the tool to the newest version:
+
+`npm install -g zou-create`
+
+*PS: On some points, zou-create is more "bare bones" then the repository but will catch-up*
+
+### Use the template on Github
+
+Duplicating AndiKod/zou on Github will give you a starting point with [SCSS](https://sass-lang.com/documentation/), [ChotaCSS](https://jenil.github.io/chota/), [///_Hyperscript](https://hyperscript.org/docs/#basics), modern JS and the rest of [Nunjucks](https://mozilla.github.io/nunjucks/templating.html) goodness. Pre-installed and easy to activate: [TailwindCSS](https://tailwindcss.com/docs/installation), or [TypeScript](https://www.typescriptlang.org/docs/handbook/typescript-in-5-minutes.html) if needed or curious about.
+
+[zouMacros](https://github.com/AndiKod/zouMacros) and [zouMixins](https://github.com/AndiKod/zouMixins) are also included, with things like css/js CDN's loader, mixins libraries, as a beginning.
+
+Things like SCSS theming and light/dark switching are included in the starting files. An example of i18n macro is also in the macros folder. Icons via [icongr](https://icongr.am/)
 
 ## Default Scripts & Packages
 
-By default it does "everything", so eventually keep only what you're using in your actual project. 
+Starting config when duplicating the repository:
 
 ```
 "scripts": {
-    "b-sass": "sass  --no-source-map src/styles/sass:public/css --style compressed",
-    "b-css": "postcss src/styles/css/input.css -o public/css/outcss.css",
-    "b-tw": "npx tailwindcss -i ./src/styles/tw-input.css -o ./public/css/tw.css --minify",
-    "b-js": "npx esbuild src/scripts/main.js --outfile=public/script.js --bundle --minify",
-    "b-ts": "tsc src/scripts/main.ts --outFile public/tscript.js",
-    "b-pages": "nunjucks-to-html --baseDir src/pages",
-
     "w-pages": "onchange \"./src/**/*\" -- npm run b-pages",
-    "w-js": "npx esbuild src/scripts/main.js --outfile=public/script.js --bundle --watch",
-    "w-ts": "tsc src/scripts/main.ts --outFile public/tscript.js --pretty --watch",
     "w-sass": "sass  --no-source-map --watch src/styles/sass:public/css",
-    "w-css": "postcss src/styles/css/input.css -o public/css/outcss.css --watch",
-    "w-tw": "npx tailwindcss -i ./src/styles/tw-input.css -o ./public/css/tw.css --watch",
+    "w-js": "npx esbuild src/scripts/main.js --outfile=public/script.js --bundle --watch",
 
+    "b-pages": "nunjucks-to-html --baseDir src/pages",
+    "b-sass": "sass  --no-source-map src/styles/sass:public/css --style compressed",
+    "b-js": "npx esbuild src/scripts/main.js --outfile=public/script.js --bundle --minify",
+    
     "c-static": "copyfiles -u 1 \"./src/static/**/*\" \"public\"",
     "c-root": "copyfiles -u 1 \"./src/*.ico\" \"./src/*.txt\" \"public\"",
     
-    "serve": "browser-sync start --server public --files public",
-    "copy": "npm-run-all --parallel c-*",
     "watch": "npm-run-all --parallel w-*",
     "build": "npm-run-all copy --parallel b-*",
+    "copy": "npm-run-all --parallel c-*",
+    "serve": "alive-server public",
     "dev": "npm-run-all copy b-pages --parallel watch serve"
   },
   ```
-The full list of all flavors. If you go with just JS/Tailwind the devDependencies list would be even shorter. Core (the first block) + Tailwind. But frankly ...have some SCSS or modern CSS fun ;)
 
-  ```
-  "dependencies": {
-    "alpinejs": "^3.13.2",
-  },
-  "devDependencies": {
-    
-    "nunjucks-to-html": "^1.1.0",
-    "cli-markdown": "^3.0.5",
-    "browser-sync": "^2.29.3",
-    "copyfiles": "^2.4.1",
-    "npm-run-all": "^4.1.5",
-    "onchange": "^7.1.0",
+### Activate Tailwind
 
-    "tailwindcss": "^3.3.5",
-    "@tailwindcss/typography": "^0.5.10",
+Add the corresponding lines in the scripts list:
 
-    "sass": "^1.69.5",
+```
+"scripts": {
+  "w-tw": "npx tailwindcss -i ./src/styles/tw-input.css -o ./public/css/tw.css --watch",
+  "b-tw": "npx tailwindcss -i ./src/styles/tw-input.css -o ./public/css/tw.css --minify",    
+},
+```
 
-    "postcss": "^8.4.31",
-    "postcss-cli": "^10.1.0",
-    "autoprefixer": "^10.4.16",
-    "postcss-import": "^15.1.0",
-    "postcss-preset-env": "^9.3.0",
-    "cssnano": "^6.0.1",
+Uncomment things in the `tailwind.config.js` and `src/styles/tw-input.css` files.
 
-    "typescript": "^5.2.2"
-  }
-  ```
+### Play with TypeScript
 
+If for any reason you want to do that, all it takes is adding:
+
+```
+"scripts": {
+  "w-ts": "tsc src/scripts/main.ts --outFile public/tscript.js --pretty --watch",
+  "b-ts": "tsc src/scripts/main.ts --outFile public/tscript.js",
+},
+```
+
+Write inside `src/scripts/main.ts`, and load `tscript.js` in templates, or rename it.
+
+------
+
+### The packages
+
+
+```
+"dependencies": {},
+"devDependencies": {
   
+  "nunjucks-to-html": "^1.1.0",
+  "cli-markdown": "^3.0.5",
+  "alive-server": "^1.3.0",
+  "copyfiles": "^2.4.1",
+  "npm-run-all": "^4.1.5",
+  "onchange": "^7.1.0",
+
+  "tailwindcss": "^3.3.5",
+  "@tailwindcss/typography": "^0.5.10",
+
+  "sass": "^1.69.5",
+
+  "postcss": "^8.4.31",
+  "postcss-cli": "^10.1.0",
+  "autoprefixer": "^10.4.16",
+  "postcss-import": "^15.1.0",
+  "postcss-preset-env": "^9.3.0",
+  "cssnano": "^6.0.1",
+
+  "typescript": "^5.2.2"
+}
+```
 
 
 ## Default Folders
 
-Zou! works "out of the box" with a simple folders convention in /src.
+Zou!JS works "out of the box" with a simple folders convention in /src.
 
-- **Layouts:** Genral template
-- **Macros:** Styled UI components
-- **Pages:** Extending a layout
-- **Partials:** Sub-pages to be included
-- **Scripts:** JS/TS
+- **Data:** Food for .njk loops & tags
+- **Layouts:** Genral templates/html-skeletons 
+- **Macros:** Styled components, functionalities,...
+- **Pages:** Extending a layout. The content.
+- **Partials:** Sub-pages to be included in others
+- **Scripts:** The JavaScripts sits in here, or TS
 - **Static:** Assets to be copied to public
-- **Styles:** Vanilla CSS (PostCSS)/SCSS/Tailwind
-
-but feel free to customise it to your liking and needs.
+- **Styles:** CSS or SCSS / Tailwind
 
 
 ### Layouts
@@ -175,7 +212,7 @@ Using the native Nunjucks [macro](https://mozilla.github.io/nunjucks/templating.
 
 ### Pages
 
-Each .njk template from `src/pages` will compile to /public along with it's path. So, `src/pages/about/index.njk` =willBe=> `public/about/index.html`.
+Each .njk template from `src/pages` will compiled to /public along with it's path. So, `src/pages/about/index.njk` =willBe=> `public/about/index.html`.
 
 *In pages we just extend a layout, set the variables, and add the main content:*
 
@@ -208,16 +245,17 @@ A custom Nunjucks filter using the [Marked](https://marked.js.org/#demo) library
 Of course, it can span over several lines, like:
 
 ```nunjucks
-{% set myText = "
+{% set pageContent = "
 
 ## Some article title
 
 Lorem [ipsum](https://ipsum.org) thing.
 
-" %}{{ myText | md|safe }}
+" %}
+{{ pageContent | md|safe }}
 ```
 
-That way the markup will be rendered at build time and search engines crawlers will find real html & text instead of and empty div with an #id ...waiting to be filled with some innerHTML.
+It's not yet the most elegant implementation but it works and trying workarounds.
 
 
 ### Partials
@@ -252,68 +290,39 @@ For the moment the TypeScript part is experimantal, but can be a thing, either f
 
 ### Static
 
-The things that don't change but need to be copied in the /public root, like the favicon. The copy action is performed at `npm run start` command invocation.
+The like images, that will be copied to public/static as they are. The favicon and txt files from the root folder are copied to the public/ root. The actions are performed at `npm run dev` command invocation or build.
 
 ### Styles
 
 Several ways to do things...
 
-#### Vanilla (PostCSS) 
-
-[PostCSS](https://postcss.org/) is giving super-powers to the css inside `src/styles/css/input.css` via some plugins, listed in postcss.config.js
-
-We have [Autoprefixer](https://github.com/postcss/autoprefixer) for automatic vendor-prefixes, modern CSS via [postcss-preset-env](https://github.com/csstools/postcss-plugins/tree/main/plugin-packs/postcss-preset-env), SASS-like syntax provided by [PreCSS](https://github.com/csstools/precss), [postcss-import](https://github.com/postcss/postcss-import) for things like `@import 'vars';` & [cssnano](https://github.com/cssnano/cssnano) for the minification.
-
-Basically almost all the list from Brad Traversy's [PostCSS Crash Course](https://www.youtube.com/watch?v=SP8mSVSAh6s) video.
-
-Place `<link rel="stylesheet" href="/css/outcss.css">` in the head section of a layout, and have fun with overpowered 'Vanilla' CSS.
-
-
-#### SASS 
+#### SCSS 
 
 The NPM script will look inside the `src/styles/sass/` folder for the `input.scss` file as entry point. Everything inside the folder will be compiled to `public/css/outscss.css` to be loaded into the layout from there. The production version is compressed by the sass compiler.
 
 For the rest, it's full SASS/SCSS passed trough the official CLI.
 
+#### Vanilla CSS ?
+
+Just write it in `input.scss` and it will work. 
+
 #### Tailwind
 
-The entry point for [Tailwind](https://tailwindcss.com/docs/installation) is located in `src/styles/twinput.css` and the tailwind.config.js as usual in the root folder. Compiled styles can be included in layouts from `public/css/tw.css` optimised/minified. The [Typography](https://tailwindcss.com/docs/typography-plugin) module is installed, so you can just add `<article class=".prose">` to use it.
-
-
-## Custom Filters
-
-In addition to the already great list of [Builtin Filters](https://mozilla.github.io/nunjucks/templating.html#builtin-filters) we can add [custom ones](https://mozilla.github.io/nunjucks/api.html#custom-filters) if needed or 'for the fun of it'.
-
-Registering it in `nunjucks.config.js` from the root folder, inside the `beforeRender()` block:
-
-```javascript
-beforeRender (nunjucksEnv, renderName, renderData) { 
-  let nunjucks = this;   
-
-  env.addFilter('shorten', function(str, count) {
-    return str.slice(0, count || 5);
-  });
-  
-},
-```
-
-It will print out only the first x characters, or 5, from a variable or a block in a page:
-
-```nunjucks
-{# Show the first 5 characters #}
-A message for you: {{ message|shorten }}
-
-{# Show the first 20 characters #}
-A message for you: {{ message|shorten(20) }}
-
-{# Show the first 10 characters #}
-{{ filter shorten(10) }}
-Lorem ipsum dolor sit amet
-{{ endfilter }}
-
-```
+The entry point for [Tailwind](https://tailwindcss.com/docs/installation) is located in `src/styles/tw-input.css` and the tailwind.config.js as usual in the root folder. Compiled styles can be included in layouts from `public/css/tw.css` optimised/minified. The [Typography](https://tailwindcss.com/docs/typography-plugin) module is installed, so you can just add `<article class=".prose">` to use it.
 
 
 
 
-... that's all for the moment :)
+
+
+
+## Changelog
+
+##### 1.1.0
+
+- The starting project have only a base config around SCSS/Chota/JS/Hyperscript and the rest is just pre-installated, and ready to be activated if needed.
+- Example implementation of layouts/pages/partials/macros/theme-switcher/i18n/...
+- npx CLI with zou-create to scaffold a new project from the terminal
+- Some other things I'm forgetting about
+
+

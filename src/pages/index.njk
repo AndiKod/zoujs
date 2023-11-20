@@ -1,16 +1,109 @@
 {% extends "src/layouts/base.njk" %}
 {% block pageTitle %} 👋 {% endblock %}
-{% block pageDesc %}Das ist meine wundersite{% endblock %}
+{% block pageDesc %}My Zou!JS project{% endblock %}
 
 {# Actual visible content on the Page #}
-{% block main %}
-<main class="w-6/12 mx-auto pt-24 text-center"> 
-  <img src="{{rootURL}}static/images/Zou!.png" width="150px" class="mx-auto pb-12">
-  <p class="pb-8 text-lg">Edit me in <em><code>src/pages/index.njk</code></em></p>
-  {% set someMD = "
+{% block main %} 
+  <section>
+    <h1>Zou!<span>JS</span></h1>
+    <p class="tagline">HTML, CSS, JS & FUN</p>
 
-  [github.com/AndiKod/zou](https://github.com/AndiKod/zou)  
+    <div class="row is-center">
+      <a href="https://www.npmjs.com/package/zou-create">
+        <div class="col glass" style="color:var(--texte)">
+          <img src="https://icongr.am/devicon/npm-original-wordmark.svg?size=32&color=currentColor" alt="NPM">
+          <span class="">npx zou-create myWebsite</span>
+        </div>
+      </a>
+      <a href="https://github.com/AndiKod/zou">
+        <div class="col glass" style="color:var(--texte)">
+          <span>Use this Template on Github</span>
+          <img src="https://icongr.am/devicon/github-original.svg?size=32&color=currentColor" alt="Github">
+        </div>
+      </a>
+    </div>  
 
-  " %}{{ someMD | md|safe }}
-</main>
+    <div class="row is-center" style="margin-top:4rem;">
+      <div class="col">
+        <h2>Scaffold a custom project</h2>
+        <a href="https://www.npmjs.com/package/zou-create">Jump into action</a>
+      </div>
+      <div class="col">
+        <h2>Start with the default</h2>
+        <a href="https://github.com/AndiKod/zou">Customise or play around</a>
+      </div>
+    </div> 
+    
+  </section>
+{% endblock %}
+
+{# Related Styles #}
+{% block headStyles %}
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Boogaloo&family=Quicksand&display=swap");
+    body {
+      background-size: 400% 400%;
+      animation: gradient 10s ease infinite;
+      height: 100vh;
+      color: var(--text);
+    }
+
+    @keyframes gradient {
+      0% {
+        background-position: 0 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0 50%;
+      }
+    }
+
+    h1 {
+      font-family: boogaloo;
+      font-size: clamp(4rem, 16vw, 8rem);
+      text-shadow: 2px 2px 0 rgba(134, 194, 50, 0.6);
+      margin: 0;
+    }
+    h1 > span {
+      font-size: clamp(1.8rem, 8vw, 4rem);
+      padding-left: clamp(0.2rem, 1vw, 1rem);
+      text-shadow: 2px 2px 0 rgba(245, 190, 37, 0.6);
+    }
+
+    .tagline {
+      font-family: Quicksand, Helvetica, sans-serif;
+      font-size: clamp(1.6em, 4vw, 2em);
+      line-height: 0.9;
+    }
+
+    a,
+    a:active,
+    a:visited {
+      color: var(--text);
+    }
+
+    section {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: center;
+    }
+
+    button {
+      width: max-content;
+      margin-left: auto;
+      margin-right: auto;
+      margin-top: 3rem;
+    }
+
+    .card {
+      backdrop-filter: blur(16px) saturate(180%);
+      -webkit-backdrop-filter: blur(16px) saturate(180%);
+      background-color: rgba(17, 25, 40, 0.46);
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.125);
+    }
+  </style>
 {% endblock %}

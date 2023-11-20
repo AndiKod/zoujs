@@ -1,0 +1,31 @@
+/** src/styles/main.scss **/
+@use "_themes";
+@use "syntax";
+@use "../../../node_modules/zoumixins/cssowl/before" as owl;
+
+
+// Exemple of zouMixins usage
+.withMixin {
+  @include owl.cssowl-before-float("*", 4px 10px 0 0);
+}
+
+// The npx & github boxes
+.glass {
+    backdrop-filter: blur(15px) saturate(170%);
+    -webkit-backdrop-filter: blur(15px) saturate(170%);
+    background-color: var(--card-bg);
+    border-radius: 4px;
+    border: 1px solid var(--card-border);
+
+    padding: 0.50rem 1rem;
+
+    display: flex;
+    gap: 1rem;
+    justify-content: space-around;
+    align-items: center;
+}
+
+// Slap a border around something when debuging
+.b {
+  border: 1px solid tomato;
+}

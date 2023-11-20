@@ -1,18 +1,23 @@
-// nunjucks.config.js
-const { marked } = require('marked');
+// zou.config.js
+
+const { marked } = require("marked");
 marked.use({
   mangle: false,
   headerIds: false,
   gfm: true,
 });
 
+
+/* Import Data file*/
+const store = require("./src/data/store.js");
+
 const data = {
-  appName: 'Zou!',
-  rootURL: '',
+  appName: "Zou!",
+  nav: store.nav
 };
 
 module.exports = {
-  "options": {
+  options: {
     /**
      * A path to the file containing data for the template.
      * If you want to pass an object, use "render.context" instead.
@@ -24,18 +29,16 @@ module.exports = {
      *
      * Return false to skip rendering (and writing).
      */
-    beforeRender (nunjucksEnv, renderName, renderData) { 
-      let nunjucks = this;   
+    beforeRender(nunjucksEnv, renderName, renderData) {
+      let nunjucks = this;
 
-      nunjucksEnv.addFilter('shorten', function(str, count) {
-          return str.trim().slice(0, count || 5);
+      nunjucksEnv.addFilter("shorten", function (str, count) {
+        return str.trim().slice(0, count || 5);
       });
 
-      nunjucksEnv.addFilter('md', function(str) {
-          return marked.parse(str);
+      nunjucksEnv.addFilter("md", function (str) {
+        return marked.parse(str);
       });
-
-      
     },
     /**
      * A hook that's called after calling nunjucks.render()
@@ -43,7 +46,9 @@ module.exports = {
      *
      * Return false to skip writing.
      */
-    beforeWrite (destinationFilepath, renderResult) { let nunjucks = this; }
+    beforeWrite(destinationFilepath, renderResult) {
+      let nunjucks = this;
+    },
   },
 
   /**
@@ -53,25 +58,24 @@ module.exports = {
    */
 
   // Executes nunjucks.configure([path], [options]).
-  "configure": {
-    "path": undefined,
-    "options": {
-      "autoescape": true,
-      "throwOnUndefined": false,
+  configure: {
+    path: undefined,
+    options: {
+      autoescape: true,
+      throwOnUndefined: false,
       // ...
-    }
+    },
   },
 
   // Executes nunjucks.render(name, [context], [callback]).
-  "render": {
-    "name": undefined, // You shouldn't change this.
+  render: {
+    name: undefined, // You shouldn't change this.
     /**
      * An object literal containing the data for the template.
      * If you need to load data from a file, use "options.data" instead.
      * If you decide to use "options.data" too, this property will be assigned to it.
      */
-    "context": {data},
-    "callback": () => {} // Not modificable.
-  }
-
+    context: { data },
+    callback: () => {}, // Not modificable.
+  },
 };
