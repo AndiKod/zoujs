@@ -4,7 +4,7 @@ module.exports.nav = [
     label: "Home",
   },
   {
-    url: "https://github.com/AndiKod/zou",
+    url: "https://github.com/AndiKod/zoujs",
     label: "Github",
   },
   {

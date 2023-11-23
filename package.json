@@ -1,6 +1,5 @@
 {
-  "name": "zou",
-  "version": "1.1.1",
+  "name": "zoujs", "version": "1.1.2",
   "description": "HTML, CSS, JS & FUN! Simple SSG built like an NPM Scripts tasks runner",
   "main": "index.js",
   "scripts": {
