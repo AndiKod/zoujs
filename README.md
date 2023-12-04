@@ -14,26 +14,49 @@ We can explore, build awesome projects and have quite some fun with "simple thin
 
 Two diferent ways to start a Zou!JS project:
 
-### [zou-create](https://www.npmjs.com/package/zou-create), the npx CLI
+### [zoucli](https://www.npmjs.com/package/zoucli), the npx interactive CLI
 
-From the terminal with nodejs installed:
 
-`npx zou-create myWebsite`
+```
+npx zou create myWebsite
+```
 
-The CLI will ask for the Author's name, css and scripting preferences then generate all needed folders and files. You can go inside and install the packages.
+### The prompt will ask:
 
-`cd myWebsite && npm install`
+<details>
+  <summary>Author:</summary>
+  <p>Defaulting to the great *DevMysterio*, here you obviously answer with your author name, for the package.json field.</p>
+</details>
 
-Open the folder in your favorite editor, then:
+<details>
+  <summary>What CSS flavor?</summary>
+  <p>A select prompt will make you chose between SCSS and Tailwind setups. On top of the SCSS one, OpenProps is also integrated, and managing the Dark/Light theming.</p>
+</details>
 
-`npm run dev`
+<details>
+  <summary>What Scripting?</summary>
+  <p>The choice here is between Javascript or Typescript. The Javascript is processed by ESBuild and optimised for production when ready. Hyperscript provides the interactivity (and some fun). On the side of Typescript, it's simply a main.ts as souce, tsconfig file and TSC compile NPM scripts.</p>
+</details>
 
+<details>
+  <summary>Play with some CDN</summary>
+  <p>Pick (By pressing the Spacebar!)one or more CDNs like ChotaCSS, Bootstrap, AlpineJS, PocketBase, htmX (I know), from zouMacros package. You can also add/remove them easily afterwards by adding/removing things like `{{ cdn.pkg('bulma')}}` in the head section of a layout.</p>
+</details>
+
+<details>
+  <summary>Open in VSCode?</summary>
+  <p>You can answer 'Nope' at that prompt and procede with NeoVim or hardcore Vi, but if you're using VSCode, Zou! will try to "code ." and open your project folder while installing the packages.</p>
+</details>
+
+<details>
+  <summary>Install packages Now?</summary>
+  <p>This Y/n prompt—if Y—will make Zou! move into `myWebsite` where all the files & folders were generated, open the folder in VSCode, launch an `npm install` then fire the dev server with `npm run dev` automatically when ready. Sit back & enjoy.</p>
+</details>
 
 To update the tool to the newest version:
 
-`npm install -g zou-create`
+`npm install -g zoucli`
 
-*PS: On some points, zou-create is more "bare bones" then the repository but will catch-up*
 
 ### Use the template on Github
 
@@ -109,6 +132,9 @@ Write inside `src/scripts/main.ts`, and load `tscript.js` in templates, or renam
   "copyfiles": "^2.4.1",
   "npm-run-all": "^4.1.5",
   "onchange": "^7.1.0",
+  "directory-tree": "^3.5.1",
+  "html-frontmatter": "^1.6.1",
+  "lodash": "^4.17.21",
 
   "tailwindcss": "^3.3.5",
   "@tailwindcss/typography": "^0.5.10",
@@ -131,14 +157,153 @@ Write inside `src/scripts/main.ts`, and load `tscript.js` in templates, or renam
 
 Zou!JS works "out of the box" with a simple folders convention in /src.
 
-- **Data:** Food for .njk loops & tags
-- **Layouts:** Genral templates/html-skeletons 
-- **Macros:** Styled components, functionalities,...
-- **Pages:** Extending a layout. The content.
-- **Partials:** Sub-pages to be included in others
-- **Scripts:** The JavaScripts sits in here, or TS
-- **Static:** Assets to be copied to public
-- **Styles:** CSS or SCSS / Tailwind
+| -Folder- | -Purpose-    |
+| --- | --- |
+| **Bin:** | db.js will scan files and create an object from the Frontmatters |
+| **Data:** | Add data in .js / load in zou.config.js / use in .njk templates |
+| **Layouts:** | General .njk templates, composed with partials and more |
+| **Macros:** | Styled components, functionalities, (many possibilities) |
+| **Pages:** | Extending a layout. The main element with dynamic content |
+| **Partials:** | Sub-pages to be included in others |
+| **Scripts:** | The enty points for the .js or .ts files |
+| **Static:** | Assets to be copied to public, generally images |
+| **Styles:** | SCSS / Tailwind. Whatever flavor you like |
+
+
+
+## Pages database file auto-generated from frontmatter
+
+On `npm run dev`, `npm run build` or directly from the root with `node bin/db`, Zou! will scan the /public folder for .html pages, and transform the HTML-frontmatter into the 'pages' object, stored and exporterd from /src/data/db.js
+
+- Each frontmatter object expecting at least 'title' and 'url' (here the date is a timestamp for now) [https://timestamp.online/](https://timestamp.online/)
+
+  ```markup
+  <!-- src/pages/blog/article-one/index.njk -->
+  {% block frontMatter %}
+  title: Article One
+  url: /blog/article-one
+  date: 1701621848
+  tags: [one, two, racoon]
+  {% endblock %}
+  ```
+  
+- becomes an entry in the pages object
+
+    ```javascript
+  // src/data/db.js
+  module.exports.pages = [
+    {
+      "title": "Article One",
+      "url": "/blog/article-one",
+      "date": 1701621848,
+      "tags": [
+        "one",
+        "two",
+        "racoon"
+      ]
+    }
+  ]
+  ```
+
+- then is injected into the 'data' object for .njk files
+  
+```javascript
+  // zou.config.js
+  
+  /* Import Data file*/       
+  const db = require('./src/data/db.js');
+  
+  /* Create the data object */
+  const data = {
+    appName: 'myWebsite',
+    pages: db.pages,
+ };     
+```
+
+## Collections and more via custom Nunjucks filters
+
+<details>
+  <summary><strong>urlInc('blog/') : </strong>  Collection of any page where the 'url' field includes a pattern</summary>
+  <p>Usage: <code>{% for post in data.pages | urlInc('blog/') %}...</code> Then inside we have access to {{ post.title }}, {{ post.url }}... We  can nest the related tags if they exists, with something like <code>{% for tags in post.tags %}...</code> from inide the first loop. It can be virtually anything, as long as it can find some matching results.</p>
+</details>
+
+<details>
+  <summary><strong>urlIs('/blog/article-one') : </strong>  Extracting the frontmatter data of a signle page</summary>
+  <p>Usage: <code>{% for page in data.pages | urlIs('/') %}...</code> It can wrap everyting inside the {% block main %} and give acces to things like related categories/tags, or whatever else usefull from the frontmatter. A classic example would be blog posts pages files.</p>
+</details>
+
+<details>
+  <summary><strong>limitFromTo(0, 5) : </strong>  Limitintg the results we recieve from *data.pages*</summary>
+  <p>Usage: <code>{% for page in data.pages | limitFromTo(0, 5) %}...</code> will produce an array with the first 5 elements. To offset the list, obviously go for a grater than zero starting point</p>
+</details>
+
+<details>
+  <summary><strong>reverse : </strong>  Builtin Nunjuck handy filter</summary>
+  <p>Usage: <code>{% for pages in data.pages | reverse %}...</code> just that. The array, in reverse, newest first.</p>
+</details>
+
+<details>
+  <summary><strong>SuperCombo : </strong>  The 5 most recent posts :)</summary>
+  <p>Usage: <code>{% for posts in data.pages | reverse | urlInc('blog/') | limitFromTo(0, 5) %}...</code> Easy.</p>
+</details>
+
+<details>
+  <summary><strong>tags : </strong>  A pre-filtered list of uniques tags</summary>
+  <p>Usage: <code>{% for tag in tags %}<a href="/posts-about/{{ tag }}">{{ tag }}</a>{% endfor %}</code> It exctracts uniques occurences from the `tags: [one, two, racoon]` lines in the frontmatters.</p>
+</details>
+
+<details>
+  <summary><strong>withTag('racoon') : </strong>  Collection of all pges having a word in their `tags`</summary>
+  <p>Usage: <code>{% for posts in data.pages | withTag('racoon') %}...</code> This can create the lists of posts on pages like `/posts-about/racoon` so a visitor could see when clicking on a tag link.</p>
+</details>
+
+## Navigation
+
+Navigations lists of links are stored in `src/data/nav.js` like the navMain block:
+
+```
+// src/data/nav.js
+module.exports.navMain = [
+  {
+    url: "/",
+    label: "Home",
+  },
+  {
+    url: "/blog",
+    label: "Blog",
+  },
+];
+```
+
+Then made available to the temlates in `zou.config.js` 
+
+```
+// zou.config.js
+
+/* Import Data file*/       
+const nav = require('./src/data/nav.js');
+
+/* Add to the data object */
+const data = {
+  appName: 'myWebsite',
+  navMain: nav.navMain,
+};     
+```
+
+That way, in any template or partial like a header, we can just:
+
+```
+// someFile.njk
+
+<ul>
+{% for link in navMain %}
+  <li><a href="{{ link.url }}">{{ link.label }}</a></li>
+{% endfor %}
+</ul>
+};     
+```
+
+We can duplicate the block in `src/data/nav.js` and repeat the rest of the steps, to create things like `navFooter`, `navSocials` or whatever other list.
 
 
 ### Layouts
