@@ -1,3 +1,5 @@
 
 // Tokeniser for code-blocks
-import './js/prism.js';
+import './lib/lolight.js';
+
+

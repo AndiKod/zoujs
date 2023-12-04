@@ -29,3 +29,29 @@ body.light {
   --bg: ivory;
   --text: #222629;
 }
+
+
+// Code tokens colors
+.ll-nam { /* words */
+    color: #2196f3;
+}
+.ll-num { /* numbers */
+    color: #ec407a;
+}
+.ll-str { /* strings */
+    color: #43a047;
+}
+.ll-rex { /* regular expressions */
+    color: #ef6c00;
+}
+.ll-pct { /* operators, punctation */
+    color: #666;
+}
+.ll-key { /* keywords */
+    color: #555;
+    font-weight: bold;
+}
+.ll-com { /* comments */
+    color: #aaa;
+    font-style: italic;
+}

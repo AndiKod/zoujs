@@ -1,13 +1,19 @@
 /** src/styles/main.scss **/
 @use "_themes";
-@use "syntax";
-@use "../../../node_modules/zoumixins/cssowl/before" as owl;
+
+// @use "../../../node_modules/zoumixins/cssowl/before" as owl;
+
+/* the props */
+/* unused ones will be purged on 'npm run build' */
+@use "lib/_open-props.min";
 
 
 // Exemple of zouMixins usage
+/*
 .withMixin {
   @include owl.cssowl-before-float("*", 4px 10px 0 0);
 }
+*/
 
 // The npx & github boxes
 .glass {
@@ -25,7 +31,31 @@
     align-items: center;
 }
 
+
 // Slap a border around something when debuging
 .b {
   border: 1px solid tomato;
+  width: var(--);
 }
+
+
+pre {
+  width: 80ch;
+  margin-inline: auto;
+  padding: 1rem;
+  white-space: nowrap;
+  overflow-x: auto;
+  border-radius: var(--radius-2);
+  background-color: var(--bg);
+  box-shadow: var(--shadow-3);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-4);
+
+  @media (max-width: 500px) {
+    border-radius: 0;
+  }
+  
+}
+
+
+

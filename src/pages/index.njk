@@ -2,6 +2,16 @@
 {% block pageTitle %} 👋 {% endblock %}
 {% block pageDesc %}My Zou!JS project{% endblock %}
 
+
+// Data that goes into data/db.js pages object
+// It enables collections and more via zou.config.js filters
+{% block frontMatter %}
+title: Homepage
+url: /
+tags: [page]
+{% endblock %}
+
+
 {# Actual visible content on the Page #}
 {% block main %} 
   <section>
@@ -9,10 +19,10 @@
     <p class="tagline">HTML, CSS, JS & FUN</p> 
 
     <div class="row is-center">
-      <a href="https://www.npmjs.com/package/zou-create">
+      <a href="https://www.npmjs.com/package/zoucli">
         <div class="col glass" style="color:var(--texte)">
           <img src="https://icongr.am/devicon/npm-original-wordmark.svg?size=32&color=currentColor" alt="NPM">
-          <span class="">npx zou-create myWebsite</span>
+          <span class="">npx zou create myWebsite</span>
         </div>
       </a>
       <a href="https://github.com/AndiKod/zoujs">
@@ -25,16 +35,32 @@
 
     <div class="row is-center" style="margin-top:4rem;">
       <div class="col">
-        <h2>Scaffold a custom project</h2>
-        <a href="https://www.npmjs.com/package/zou-create">Jump into action</a>
+        <h2 style="color:var(--)">Scaffold a custom project</h2>
+        <a href="https://www.npmjs.com/package/zoucli">Jump into action</a>
       </div>
       <div class="col">
         <h2>Start with the default</h2>
-        <a href="https://github.com/AndiKod/zoujs">Customise or play around</a>
+        <a href="https://github.com/AndiKod/zoujs">Customise or {{ dog }} play around</a>
       </div>
-    </div> 
+    </div>
+
+   
     
-  </section>
+  </section> 
+
+  <div class="display:grid;place-content:center;marging-bottom: 2rem;">
+    <pre >
+    <code class="lolight">&lt!-- Last 5 pages from the blog collection --&gt
+&lt;ul&gt;
+{%raw%}{% for article in data.pages | urlInc('blog/') | limitFromTo(0, 5) | reverse %}{%endraw%}
+   &lt;h2&gt;{%raw%}<a href="{{ article.url }}">{{ article.title }}</a>{%endraw%}&lt;/h2&gt;
+{%raw%}{% endfor %}{%endraw%}
+&lt;/ul&gt;</code> 
+    </pre> 
+  </div>   
+
+
+
 {% endblock %}
 
 {# Related Styles #}

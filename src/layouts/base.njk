@@ -1,3 +1,6 @@
+<!--
+{%block  frontMatter %}{% endblock %}  
+-->
 <!DOCTYPE html>
 <html lang="en">
     <head x-data="data">
@@ -13,8 +16,9 @@
         {% import '../../node_modules/zoumacros/lib/cdn.njk' as cdn %}
         {{ cdn.pkg('hyperscript') }}
         {{ cdn.pkg('chota') }}
+
         <!-- Comiled styles -->
-        <link rel="stylesheet" href="/css/main.css"/>
+        <link rel="stylesheet" href="/main.css"/>
         {% block headStyles %}{% endblock %}
         {% block headScripts %}{% endblock %}
     </head>
@@ -26,6 +30,8 @@
         <script src="/script.js"></script>
         
         <script>
+         
+        const dog = "Tekel"; 
         // function to set a given theme/color-scheme
         function setTheme(themeName) {
             localStorage.setItem('zouTheme', themeName);
