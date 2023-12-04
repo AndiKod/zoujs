@@ -127,7 +127,7 @@ Write inside `src/scripts/main.ts`, and load `tscript.js` in templates, or renam
 "devDependencies": {
   
   "nunjucks-to-html": "^1.1.0",
-  "cli-markdown": "^3.0.5",
+  "showdown": "^2.1.0",
   "alive-server": "^1.3.0",
   "copyfiles": "^2.4.1",
   "npm-run-all": "^4.1.5",
@@ -259,9 +259,9 @@ On `npm run dev`, `npm run build` or directly from the root with `node bin/db`, 
 
 ## Navigation
 
-Navigations lists of links are stored in `src/data/nav.js` like the navMain block:
+Navigation lists of links are stored in `src/data/nav.js` like the navMain block:
 
-```
+```javascript
 // src/data/nav.js
 module.exports.navMain = [
   {
@@ -277,7 +277,7 @@ module.exports.navMain = [
 
 Then made available to the temlates in `zou.config.js` 
 
-```
+```javascript
 // zou.config.js
 
 /* Import Data file*/       
@@ -397,7 +397,7 @@ Each .njk template from `src/pages` will compiled to /public along with it's pat
 
 #### Writing in Markdown
 
-A custom Nunjucks filter using the [Marked](https://marked.js.org/#demo) library was added in config.js converting a variable from md to html. *So we can:*
+A custom Nunjucks filter using the [Showdown](https://showdownjs.com/docs/markdown-syntax/) library was added in config.js converting a variable from md to html. *So we can:*
 
 ```nunjucks
 {# Set the variable with Markdown text #}

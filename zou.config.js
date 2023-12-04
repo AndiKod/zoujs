@@ -3,6 +3,7 @@
 
 // Get Lodash in
 const _ = require('lodash');
+const showdown = require('showdown');
 
 /* Import Data file*/
 const store = require("./src/data/store.js");        
@@ -100,6 +101,16 @@ module.exports = {
           }
         }
         return input;
+      });
+
+
+      // Markdown
+      // {% set content = `md content` %}
+      // {{ content | md }}
+      nunjucksEnv.addFilter('md', function(input){
+        const converter = new showdown.Converter();
+        const md = converter.makeHtml(input);
+        return md;
       });
 
     },
