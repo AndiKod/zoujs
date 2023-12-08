@@ -1,9 +1,7 @@
-
 // zou.config.js
 
 // Get Lodash in
 const _ = require('lodash');
-const showdown = require('showdown');
 
 /* Import Data file*/
 const store = require("./src/data/store.js");        
@@ -16,7 +14,7 @@ const tags = _.uniqBy( _.flatMap(db.pages, 'tags') );
 /* {% for link in data.links %} ... {% endfor %}*/
 
 const data = {
-  appName: 'sass-js',
+  appName: 'full',
   links: store.links,
   pages: db.pages,
   navMain: nav.navMain,
@@ -101,16 +99,6 @@ module.exports = {
           }
         }
         return input;
-      });
-
-
-      // Markdown
-      // {% set content = `md content` %}
-      // {{ content | md }}
-      nunjucksEnv.addFilter('md', function(input){
-        const converter = new showdown.Converter();
-        const md = converter.makeHtml(input);
-        return md;
       });
 
     },

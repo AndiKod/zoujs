@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JS & SCSS Docs</title>
+  <!-- the props -->
+  <link rel="stylesheet" href="https://unpkg.com/open-props"/>
+  <!-- optional imports that use the props -->
+  <link rel="stylesheet" href="https://unpkg.com/open-props/normalize.min.css"/>
+</head>
+<body>
+  <header>
+    <h1>Docs frontpage</h1>
+  <p>Just a page with links to both folders.</p>
+  </header>
+  
+  <div class="topic">
+    <a href="./jsdoc/">
+      <h2>JS Doc</h2>
+    </a>
+    <iframe src="./jsdoc/" title="JS doc"></iframe>
+  </div>
+
+  
+  <div class="topic">
+    <a href="./sassdoc/">
+      <h2>SCSS Doc</h2>
+    </a>
+    <iframe src="./sassdoc/" title="JS doc"></iframe>
+  </div>
+
+
+  
+  <style>
+    body {
+      padding-block: var(--size-6);
+    }
+    header {
+      max-width: 80ch;
+      margin-inline: auto;
+      padding: var(--size-6);
+    }
+    .topic {
+      max-width: 90%;
+      margin-inline: auto;
+    }
+    .topic:last-of-type {
+      margin-bottom: 2rem;
+    }
+    iframe {
+      border-radius: var(--radius-2);
+      width: 100%;
+      height: 35rem;
+    }
+
+    .b {
+      border: 1px solid lightgreen;
+    }
+  </style>  
+</body>
+</html>

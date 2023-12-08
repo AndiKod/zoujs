@@ -3,61 +3,59 @@
 -->
 <!DOCTYPE html>
 <html lang="en">
-    <head x-data="data">
-        <meta charset="UTF-8"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <meta name="generator" content="Zou!JS"/>
-        <title>
-            {% block pageTitle %}{% endblock %}
-            {{data.appName}}</title>
-        <meta name="description" content="{% block pageDesc %}{% endblock %}">
-        <link rel="author" href="/humans.txt"/>
-        <link rel="icon" href="/favicon.ico"/>
-        {% import '../../node_modules/zoumacros/lib/cdn.njk' as cdn %}
-        {{ cdn.pkg('hyperscript') }}
-        {{ cdn.pkg('chota') }}
+    <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content="Zou!" />
+    <title>{% block pageTitle %}{% endblock %} {{data.appName}}</title>
+    <meta name="description" content="{% block pageDesc %}{% endblock %}">
+    <link rel="author" href="/humans.txt" />
+    <link rel="icon" href="/favicon.ico" />
+    <!-- Fonts for the Welcome page -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Boogaloo&family=Caveat&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/main.css" />
+    <script src="https://unpkg.com/hyperscript.org@0.9.12"></script>
 
-        <!-- Comiled styles -->
-        <link rel="stylesheet" href="/main.css"/>
-        {% block headStyles %}{% endblock %}
-        {% block headScripts %}{% endblock %}
+    {% import '../../node_modules/zoumacros/lib/cdn.njk'as cdn %}
+    
+    
+    {% block headStyles %}{% endblock %}
+    {% block headScripts %}{% endblock %}
+    <!-- https://blog.hubspot.com/marketing/meta-tags -->
     </head>
     <body>
 
-        {% include "src/partials/header.njk" %}
-        {% block main %}{% endblock %}
+    {% block main %}{% endblock %}
 
-        <script src="/script.js"></script>
-        
-        <script>
-         
-        const dog = "Tekel"; 
-        // function to set a given theme/color-scheme
-        function setTheme(themeName) {
-            localStorage.setItem('zouTheme', themeName);
-            document.body.classList.add(themeName);
-            
-        }
-
-            // function to toggle between light and dark theme
-            function toggleTheme() {
-                if (localStorage.getItem('zouTheme') === 'dark') {
-                    setTheme('light');
-                    location.reload()
-                } else {
-                    setTheme('dark');
-                    location.reload()
-                }
-            }
-
-            // Immediately invoked function to set the theme on initial load
-            (function () {
-                if (localStorage.getItem('zouTheme') === 'dark') {
-                    setTheme('dark');
-                } else {
-                    setTheme('light');
-                }
-            })();
-        </script>
+    <script src="/script.js"></script>
+    
+    <script>
+      // function to set a given theme/color-scheme
+      function setTheme(themeName) {
+          localStorage.setItem('zouTheme', themeName);
+          document.body.classList.add(themeName);
+      }
+      // function to toggle between light and dark theme
+      function toggleTheme() {
+          if (localStorage.getItem('zouTheme') === 'dark') {
+              setTheme('light');
+              location.reload()
+          } else {
+              setTheme('dark');
+              location.reload()
+          }
+      }
+      // IIFE to set the theme on initial load
+      (function () {
+          if (localStorage.getItem('zouTheme') === 'dark') {
+              setTheme('dark');
+          } else {
+              setTheme('light');
+          }
+      })();
+    </script>
+    
     </body>
 </html>

@@ -2,11 +2,11 @@
 
 module.exports.navMain = [
   {
-    url: "/",
-    label: "Home",
+    url: "https://github.com/AndiKod/zoujs",
+    label: "Github zoujs",
   },
   {
-    url: "/blog",
-    label: "Blog",
+    url: "https://www.npmjs.com/package/zoucli",
+    label: "NPM zoucli",
   },
 ];

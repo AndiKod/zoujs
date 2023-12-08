@@ -2,26 +2,79 @@
     <img width="25%" src="./ZouJS.png">
 </p>
 
-# Zou!JS
+# Zou! SSG
 
-*— Zou! is a french interjection that stands for: JustDoIt! GoAhead!*
+Scaffold a custom Zou! SSG project and more, with interactive prompts.
 
-A simple and easy to understand SSG setup, with close to zero configuration or dependencies but flexible enough to craft web projects or fire a quick sandbox and try things from a curated list of CDN's, Macros & Mixins. 
+*— Prononced like 'zoo' or 'zu' in italian/romanian,...*<br>
+*Zou! is a french interjection that stands for: JustDoIt! GoAhead! Let'sGo!*
 
-We can explore, build awesome projects and have quite some fun with "simple things" and web standards.
+Simple SSG with close to zero configuration, going back to the basics.
 
-## Install. Scaffold from CLI or Use the template on Github
+No JS framework, no mega-bundler, almost nothing new to learn beyond HTML, CSS, JS yet it does the job "out of the box" . #HaveFun
 
-Two diferent ways to start a Zou!JS project:
 
-### [zoucli](https://www.npmjs.com/package/zoucli), the npx interactive CLI
+**NOTE:** This repo is the reproduction of a "SCSS/JS -full" version of Zou! generated with via **[Zou!CLI](https://www.npmjs.com/package/zoucli)** the terminal companion, *v1.4.2*.
 
+
+| -Folder- | -Purpose-    |
+| --- | --- |
+| **Bin:** | db.js will scan files and create an object from the Frontmatters |
+| **Docs:** | *-if enabled-* JS and SCSS docs websites will generate here. |
+| **src/Data:** | Add data in .js / load in zou.config.js / use in .njk templates |
+| **src/Layouts:** | General .njk templates, composed with partials and more |
+| **src/Macros:** | Styled components, functionalities, (many possibilities) |
+| **src/Pages:** | Extending a layout. The main element with dynamic content |
+| **src/Partials:** | Sub-pages to be included in others |
+| **src/Scripts:** | The enty points for the .js or .ts files |
+| **src/Static:** | Assets to be copied to public, generally images |
+| **src/Styles:** | SCSS (w/ subfolders partials) / Tailwind. Whatever flavor you like |
+| **Tests** | *-if enabled-* A default folder for *thing.test.js* files, but it's up to you |
+
+## Use this repo as a Template
+
+Click the green button to start a new repo of your own. 
+
+From there you can either edit the pages in the browser via something like [CodeSandbox](https://codesandbox.io/) then link it to [Vercel](https://vercel.com/)||[Netlify](https://www.netlify.com/) to deploy your website automatically on each commit. A CMS feeling without quitting the browser.
+
+Or just clone your new repo on your machine as usual. That way, you won't have to mess with changing the remotes, creating a blank repo, etc.
+
+
+## Scaffold a new Zou! project, the "one liner way"
+
+From v1.4.0, simulating "yes" answers to the propmt, a core SCSS+JS project will be instantly created. The optional flag -vsc will open the folder in VSCode, so you could finish from there with your favorite package manager. Just `pnpm/yarn/npm i` then `run dev`. 
 
 ```
-npx zou create myWebsite
+npx zou create myWebsite -y -vsc
+
+// or first: npm i -g zoucli ...then:
+zou create myWebsite -y -vsc
 ```
 
-### The prompt will ask:
+To scaffold an instant Tailwind & JS Zou! project:
+
+```
+zou create myWebsite -tw -vsc
+```
+
+The full machine with Jest testing, JS TypesChecking via JSDoc, HTML docs generation for both Javascript and SCSS via jsDoc and sassDoc, plus the rest of the Zou! features:
+
+```
+zou create myProject -full -vsc
+```
+
+For TypeScript, don't use any flag and anwser to the prompt ;)
+
+
+## Talk to the prompt
+
+No flags, just having a conversation:
+
+```
+zou create myWebsite
+```
+
+### Zou! will ask:
 
 <details>
   <summary>Author:</summary>
@@ -30,166 +83,77 @@ npx zou create myWebsite
 
 <details>
   <summary>What CSS flavor?</summary>
-  <p>A select prompt will make you chose between SCSS and Tailwind setups. On top of the SCSS one, OpenProps is also integrated, and managing the Dark/Light theming.</p>
+  <p>Choices: <strong>SCSS</strong> or <strong>Tailwind</strong>. On top of the SCSS one, <a href="https://open-props.style/">OpenProps</a> is also integrated, and managing the Dark/Light theming. We can indeed go for just Vanilla CSS in the SCSS setup. For Bootstrap, Chota and more, just <code>{{ cdn.pkg('bootstrap')}}</code> in the layout's Head. <em><a href="https://github.com/AndiKod/zouMacros">see available packages</a></em></p>
 </details>
 
 <details>
   <summary>What Scripting?</summary>
-  <p>The choice here is between Javascript or Typescript. The Javascript is processed by ESBuild and optimised for production when ready. Hyperscript provides the interactivity (and some fun). On the side of Typescript, it's simply a main.ts as souce, tsconfig file and TSC compile NPM scripts.</p>
+  <p>Choices: <strong>Javascript</strong> or <strong>Typescript</strong>. The Javascript is processed by ESBuild and optimised for production when ready. <a href="https://hyperscript.org/docs/#basics">Hyperscript</a> provides the interactivity <em>(and some fun)</em>. On the side of Typescript, it's simply a main.ts as souce, tsconfig file and TSC compile NPM scripts.</p>
 </details>
 
 <details>
-  <summary>Play with some CDN</summary>
-  <p>Pick (By pressing the Spacebar!)one or more CDNs like ChotaCSS, Bootstrap, AlpineJS, PocketBase, htmX (I know), from zouMacros package. You can also add/remove them easily afterwards by adding/removing things like `{{ cdn.pkg('bulma')}}` in the head section of a layout.</p>
+  <summary>Enable sassDoc generation?</summary>
+  <p>Needs to be installed with `npm i -g sassdoc`. A setup for <strong><a href="http://sassdoc.com/getting-started/">sassDoc</a></strong>, generating a mini-website with scss documentation via code annotations. Add comments, types, todos in your SCSS, then `npm run docs` to generate.  Optional.</p>
+</details>
+
+<details>
+  <summary>Enable JSDoc & TypesCheck?</summary>
+  <p><strong><a href="https://jsdoc.app/">JSDoc</a></strong> brings TypesChecking to Vanilla JS, and great documentation. Two videos: <a href="https://www.youtube.com/watch?v=YK-GurROGIg">JSDoc Crash Course - Brad.Traversy</a> and <a href="https://www.youtube.com/watch?v=oH_-6TyxVhI">JSDoc TypesCheck in 15min - codeSTACKr</a>. Optional.</p>
+</details>
+
+<details>
+  <summary>Enable JS Testing with Jest?</summary>
+  <p>Unit tests with the awesome <strong><a href="https://jestjs.io/docs/getting-started">Jest</a></strong>. It will create a `tests` folder in the root, but you can organize as you want. When ready ... `npm run test`, or just `npm t`. Optional.</p>
 </details>
 
 <details>
   <summary>Open in VSCode?</summary>
-  <p>You can answer 'Nope' at that prompt and procede with NeoVim or hardcore Vi, but if you're using VSCode, Zou! will try to "code ." and open your project folder while installing the packages.</p>
+  <p>You can answer 'Nope' at that prompt and procede with NeoVim or hardcore Vi, but if you're using VSCode, Zou! will "code ." and open your project folder.</p>
 </details>
 
 <details>
-  <summary>Install packages Now?</summary>
-  <p>This Y/n prompt—if Y—will make Zou! move into `myWebsite` where all the files & folders were generated, open the folder in VSCode, launch an `npm install` then fire the dev server with `npm run dev` automatically when ready. Sit back & enjoy.</p>
+  <summary>Auto npm-install/run?</summary>
+  <p>This would programatically use NPM to install packages, then run `npm run dev` in one go. It's nice but can be a few seconds longer than the other options.</p>
 </details>
 
-To update the tool to the newest version:
 
-`npm install -g zoucli`
+### Then will:
 
+- Instantly create `myWebsite` folder
+- ... and all needed files/folders inside.
+- Go there with `cd myWebsite` and
+- open in VSCode *(if asked for)*.
 
-### Use the template on Github
-
-Duplicating AndiKod/zou on Github will give you a starting point with [SCSS](https://sass-lang.com/documentation/), [ChotaCSS](https://jenil.github.io/chota/), [///_Hyperscript](https://hyperscript.org/docs/#basics), modern JS and the rest of [Nunjucks](https://mozilla.github.io/nunjucks/templating.html) goodness. Pre-installed and easy to activate: [TailwindCSS](https://tailwindcss.com/docs/installation), or [TypeScript](https://www.typescriptlang.org/docs/handbook/typescript-in-5-minutes.html) if needed or curious about.
-
-[zouMacros](https://github.com/AndiKod/zouMacros) and [zouMixins](https://github.com/AndiKod/zouMixins) are also included, with things like css/js CDN's loader, mixins libraries, as a beginning.
-
-Things like SCSS theming and light/dark switching are included in the starting files. An example of i18n macro is also in the macros folder. Icons via [icongr](https://icongr.am/)
-
-## Default Scripts & Packages
-
-Starting config when duplicating the repository:
-
-```
-"scripts": {
-    "w-pages": "onchange \"./src/**/*\" -- npm run b-pages",
-    "w-sass": "sass  --no-source-map --watch src/styles/sass:public/css",
-    "w-js": "npx esbuild src/scripts/main.js --outfile=public/script.js --bundle --watch",
-
-    "b-pages": "nunjucks-to-html --baseDir src/pages",
-    "b-sass": "sass  --no-source-map src/styles/sass:public/css --style compressed",
-    "b-js": "npx esbuild src/scripts/main.js --outfile=public/script.js --bundle --minify",
-    
-    "c-static": "copyfiles -u 1 \"./src/static/**/*\" \"public\"",
-    "c-root": "copyfiles -u 1 \"./src/*.ico\" \"./src/*.txt\" \"public\"",
-    
-    "watch": "npm-run-all --parallel w-*",
-    "build": "npm-run-all copy --parallel b-*",
-    "copy": "npm-run-all --parallel c-*",
-    "serve": "alive-server public",
-    "dev": "npm-run-all copy b-pages --parallel watch serve"
-  },
-  ```
-
-### Activate Tailwind
-
-Add the corresponding lines in the scripts list:
-
-```
-"scripts": {
-  "w-tw": "npx tailwindcss -i ./src/styles/tw-input.css -o ./public/css/tw.css --watch",
-  "b-tw": "npx tailwindcss -i ./src/styles/tw-input.css -o ./public/css/tw.css --minify",    
-},
-```
-
-Uncomment things in the `tailwind.config.js` and `src/styles/tw-input.css` files.
-
-### Play with TypeScript
-
-If for any reason you want to do that, all it takes is adding:
-
-```
-"scripts": {
-  "w-ts": "tsc src/scripts/main.ts --outFile public/tscript.js --pretty --watch",
-  "b-ts": "tsc src/scripts/main.ts --outFile public/tscript.js",
-},
-```
-
-Write inside `src/scripts/main.ts`, and load `tscript.js` in templates, or rename it.
-
-------
-
-### The packages
-
-
-```
-"dependencies": {},
-"devDependencies": {
+You can simply `pnpm/yarn/npm install then run dev` from inside `myWebsite`
   
-  "nunjucks-to-html": "^1.1.0",
-  "showdown": "^2.1.0",
-  "alive-server": "^1.3.0",
-  "copyfiles": "^2.4.1",
-  "npm-run-all": "^4.1.5",
-  "onchange": "^7.1.0",
-  "directory-tree": "^3.5.1",
-  "html-frontmatter": "^1.6.1",
-  "lodash": "^4.17.21",
+- Install packages with `npm install` &
+- launch `npm run dev` *(if asked for)*
+- Open the project in the default browser.  
 
-  "tailwindcss": "^3.3.5",
-  "@tailwindcss/typography": "^0.5.10",
-
-  "sass": "^1.69.5",
-
-  "postcss": "^8.4.31",
-  "postcss-cli": "^10.1.0",
-  "autoprefixer": "^10.4.16",
-  "postcss-import": "^15.1.0",
-  "postcss-preset-env": "^9.3.0",
-  "cssnano": "^6.0.1",
-
-  "typescript": "^5.2.2"
-}
-```
-
-
-## Default Folders
-
-Zou!JS works "out of the box" with a simple folders convention in /src.
-
-| -Folder- | -Purpose-    |
-| --- | --- |
-| **Bin:** | db.js will scan files and create an object from the Frontmatters |
-| **Data:** | Add data in .js / load in zou.config.js / use in .njk templates |
-| **Layouts:** | General .njk templates, composed with partials and more |
-| **Macros:** | Styled components, functionalities, (many possibilities) |
-| **Pages:** | Extending a layout. The main element with dynamic content |
-| **Partials:** | Sub-pages to be included in others |
-| **Scripts:** | The enty points for the .js or .ts files |
-| **Static:** | Assets to be copied to public, generally images |
-| **Styles:** | SCSS / Tailwind. Whatever flavor you like |
+You're set and ready to rock! 
 
 
 
-## Pages database file auto-generated from frontmatter
+
+## Pages database auto-generated from frontmatter
 
 On `npm run dev`, `npm run build` or directly from the root with `node bin/db`, Zou! will scan the /public folder for .html pages, and transform the HTML-frontmatter into the 'pages' object, stored and exporterd from /src/data/db.js
 
 - Each frontmatter object expecting at least 'title' and 'url' (here the date is a timestamp for now) [https://timestamp.online/](https://timestamp.online/)
 
-  ```markup
+  ```
   <!-- src/pages/blog/article-one/index.njk -->
   {% block frontMatter %}
-  title: Article One
-  url: /blog/article-one
-  date: 1701621848
-  tags: [one, two, racoon]
+    title: Article One
+    url: /blog/article-one
+    date: 1701621848
+    tags: [one, two, racoon]
   {% endblock %}
   ```
   
 - becomes an entry in the pages object
 
-    ```javascript
+    ```
   // src/data/db.js
   module.exports.pages = [
     {
@@ -207,7 +171,7 @@ On `npm run dev`, `npm run build` or directly from the root with `node bin/db`, 
 
 - then is injected into the 'data' object for .njk files
   
-```javascript
+    ```
   // zou.config.js
   
   /* Import Data file*/       
@@ -217,8 +181,8 @@ On `npm run dev`, `npm run build` or directly from the root with `node bin/db`, 
   const data = {
     appName: 'myWebsite',
     pages: db.pages,
- };     
-```
+  };     
+  ```
 
 ## Collections and more via custom Nunjucks filters
 
@@ -259,9 +223,9 @@ On `npm run dev`, `npm run build` or directly from the root with `node bin/db`, 
 
 ## Navigation
 
-Navigation lists of links are stored in `src/data/nav.js` like the navMain block:
+Navigations lists of links are stored in `src/data/nav.js` like the navMain block:
 
-```javascript
+```
 // src/data/nav.js
 module.exports.navMain = [
   {
@@ -275,9 +239,9 @@ module.exports.navMain = [
 ];
 ```
 
-Then made available to the temlates in `zou.config.js` 
+Then made available to the templates in `zou.config.js` 
 
-```javascript
+```
 // zou.config.js
 
 /* Import Data file*/       
@@ -306,188 +270,156 @@ That way, in any template or partial like a header, we can just:
 We can duplicate the block in `src/data/nav.js` and repeat the rest of the steps, to create things like `navFooter`, `navSocials` or whatever other list.
 
 
-### Layouts
+## SCSS Partials Subfolders 
 
-General .njk layouts, plain HTML with placeholders for dynamically inserted data from the pages. See the [official Nunjucks documentation](https://mozilla.github.io/nunjucks/templating.html) for the full list of tags, logic, filters, ...
+From 1.3.0, the SCSS files are organized in subfolders, inspired by the official [7-1 pattern](https://sass-guidelin.es/#architecture), [Kevin Powell](https://www.youtube.com/watch?v=9Ld-aOKsEDk) and personnal preferences. The starting structure is:
 
-*Page title dynamically generated in the layout:*
 
-```nunjucks
-<title>{% block pageTitle %}{% endblock %} {{data.appName}}</title>
+```scss
+  @use "abstract";
+  @use "base";
+  @use "components";
+  @use "layout";
+  @use "pages";
+  @use "themes";
+  @use "vendors";
+  @use "utility";
+  @use "freestyle";
 ```
 
-The `{{data.appName}}` value is passed via nunjucks.config.js in the root, the named block value will be set on each page that extends the layout.
+The freestyle folder imports the _getWild.scss partial, for random stuff quickly thrown there while prototyping or for whatever reason. See it like the TypeScript's any:scss.
 
-*Partials and the main content block are included in the layout with:*
+You can scaffold several Zou! projects, customize the SCSS folders and save them on github as starters with different structures.
 
-```nunjucks
-{% include "src/partials/header.njk" ignore missing %}
-{% block main %}{% endblock %}
-{% include "src/partials/footer.njk" ignore missing %}
+
+## Scaffold a new Page
+
+From a terminal, just call:
+
+```
+zou make:file
 ```
 
-The *ignore missing* part prevent Nunjucks from throwing errors around if we reference missing partial.
+The prompt will ask:
 
-### Macros
+<details>
+  <summary>What type?</summary>
+  <p>For the moment it will make you chose between Layout, Page or Partial. The goal is to have a quite complete scafold targets along the way.</p>
+</details>
 
-Using the native Nunjucks [macro](https://mozilla.github.io/nunjucks/templating.html#macro) custom tags, we can get something like re-usable UI Components.
+<details>
+  <summary>Page</summary>
+  <p>Zou! will ask for the title, the slug and the layout. Say you answer: About / about / base, it will create the `src/pages/about/index.njk` page, extending `src/layouts/base.njk`</p>
+</details>
 
-*Some `src/macros/forms.html` file could have inside:*
+<details>
+  <summary>Layout</summary>
+  <p>Will ask for the layout's name (in slug format). Il will scaffold a layout boilerplate in `src/layouts/name.nkj`, with ///_Hyperscript and zouMacros included, plus the "main block" where the pages will be loaded.</p>
+</details>
 
-```nunjucks
-{# Form elements components #}
-{# {% import "src/macros/forms.html" as form %} #}
-{# {{ form.input("pass", type="password") }} #}
+<details>
+  <summary>Partial</summary>
+  <p>Will ask for the file name to  be created. Say you answer 'footer', it will create the `src/partials/footer.njk` file, that you could then include where needed with {% include 'src/partials/footer.njk' %}.</p>
+</details>
 
-{% macro label(for, text) %}
-  <label class="form-label"  for="{{for}}">{{ text }}</label>
-  <!-- With Vanilla CSS -->
-  <style>
-    .form-label {
-      font-weight: 600;
-      color: #3e0923;
-    }
-  </style> 
-{% endmacro %}
+## Save to Git
 
-{% macro input(name, holder, value='', type='text') %}
-  <!-- Or Tailwind classes -->
-  <input type="{{type}}" name="{{name}}" placeholder="{{holder}}"
-  value="{{ value | escape }}" id="{{name}}"
-  class="mb-4 p-2 border border-gray-400 rounded w-full">
-{% endmacro %}
+From the project's root folder:
+
+```
+zou git:save
 ```
 
-...then, in a .njk page, import & use:
+It will prompt for a `Commit message` or generate one as `Update from month/day at h:m`, ask for the branch name and defaulting to `master`.
 
-```nunjucks
-{% import "src/macros/forms.html" as form %}
+It will basically do *(in one go)* the equivalent of:
 
-<form class="w-4/12 mx-auto">
-  <section>
-  {{ form.label("user", "Username") }}<br/>
-  {{ form.input("user", value="") }} 
-  </section>  
-  <section>
-  {{ form.label("pass", "Password") }}<br/>
-  {{ form.input("pass", type="password") }}
-  </section> 
-</form>
+```
+git add .
+git commit -m "commitMessage"
+git push origin branch
 ```
 
-### Pages
+The basic "take everything and throw it on master", that's why it's called by a generic *git:save* like a Ctr/Cmd+S. Other git:commands might come later.
 
-Each .njk template from `src/pages` will compiled to /public along with it's path. So, `src/pages/about/index.njk` =willBe=> `public/about/index.html`.
+## Manual Deploy to Vercel
 
-*In pages we just extend a layout, set the variables, and add the main content:*
+From the project's root folder:
 
-```nunjucks
-<!-- Layout -->
-{% extends "src/layouts/base.njk" %}
-<!-- Some variables for SEO -->
-{% block pageTitle %} 👋 {% endblock %}
-
-<!-- The actual body -->
-{% block main %}
-<main> 
-  <p>Here goes the main content.</p>
-</main>
-{% endblock %}
+```
+zou deploy:vercel
 ```
 
-#### Writing in Markdown
+It will build the project, move into `/public` and call `vercel deploy --prod`. The first time it will setup the distant project or link to an existant, and the next ones will just upload the website.
 
-A custom Nunjucks filter using the [Showdown](https://showdownjs.com/docs/markdown-syntax/) library was added in config.js converting a variable from md to html. *So we can:*
+If you have "strange characters" in the terminal, just do the first deploy directly by `cd public && vercel deploy --prod`. From here, the deploy:vercel from the root will roll. *Nothing is "borken" just Bash commands running from Node via zh wraper*.
 
-```nunjucks
-{# Set the variable with Markdown text #}
-{% set myText = "Some **markdown** in here" %}
 
-{# Render it as HTML with the filters #}
-{{ myText | md|safe }}
+## Manual Deploy to Netlify
+
+Be sure to have Netlify CLI installed: `npm install netlify-cli -g`. 
+
+```
+zou deploy:netlify
 ```
 
-Of course, it can span over several lines, like:
+It will build the project, move into `/public` and call `netlify deploy --prod` for a [Manual Deploy](https://docs.netlify.com/cli/get-started/#manual-deploys). 
 
-```nunjucks
-{% set pageContent = "
+One approach is to [drop here](https://app.netlify.com/drop) the `public/` folder after running `npm run build` the first time, and change the name on Netlify to match with your project. > Go inside the public/ folder, call `netlify link` and link them.
 
-## Some article title
-
-Lorem [ipsum](https://ipsum.org) thing.
-
-" %}
-{{ pageContent | md|safe }}
-```
-
-It's not yet the most elegant implementation but it works and trying workarounds.
+Next times from the root of your local project `npx zou deploy:netlify` will be enough, build & deploy simple command. To save your code ...*zou git:save*
 
 
-### Partials
-
-Well, the partials folder :) Also .njk files, so we could have access to the templating, variables, etc.
-
-On file change/save, the pages are re-built and reflected live by browser-sync.
-
-### Scripts
-
-One or another, your choice ;)
-
-#### Javascript
-
-Processed by ESBuild. Write modern JS in and let it do the rest.
-
-```bash
-npx esbuild src/scripts/main.js --outfile=public/script.js --bundle --watch
-```
-[ESBuild Docs](https://github.com/evanw/esbuild#readme) on Github
-
-#### TypeScript
-
-With typescript installed as dev dependency  via `npm install typescript --save-dev` we can call the `npx tsc ` compiler. The simplest way is something like:
-
-```bash
-tsc src/scripts/main.ts --outfile public/tscript.js --watch
-```
-You can read the [tsc CLI Options](https://www.typescriptlang.org/docs/handbook/compiler-options.html) on the [Official TS Website](https://www.typescriptlang.org/)
-
-For the moment the TypeScript part is experimantal, but can be a thing, either for learning purpose or using TS as main scripting language ...even when simply crafting websites.
-
-### Static
-
-The like images, that will be copied to public/static as they are. The favicon and txt files from the root folder are copied to the public/ root. The actions are performed at `npm run dev` command invocation or build.
-
-### Styles
-
-Several ways to do things...
-
-#### SCSS 
-
-The NPM script will look inside the `src/styles/sass/` folder for the `input.scss` file as entry point. Everything inside the folder will be compiled to `public/css/outscss.css` to be loaded into the layout from there. The production version is compressed by the sass compiler.
-
-For the rest, it's full SASS/SCSS passed trough the official CLI.
-
-#### Vanilla CSS ?
-
-Just write it in `input.scss` and it will work. 
-
-#### Tailwind
-
-The entry point for [Tailwind](https://tailwindcss.com/docs/installation) is located in `src/styles/tw-input.css` and the tailwind.config.js as usual in the root folder. Compiled styles can be included in layouts from `public/css/tw.css` optimised/minified. The [Typography](https://tailwindcss.com/docs/typography-plugin) module is installed, so you can just add `<article class=".prose">` to use it.
+---
 
 
+Related Docs, *just in case*: [Nunjucks](https://mozilla.github.io/nunjucks/templating.html), [Openprops](https://open-props.style/#getting-started), [Hyperscript](https://hyperscript.org/docs/#basics), [SCSS](https://sass-lang.com/documentation/variables/), [zouMixins](https://github.com/AndiKod/zouMixins), [Tailwind](https://tailwindcss.com/docs/installation), [Typescript](https://www.typescriptlang.org/docs/handbook/typescript-in-5-minutes.html). 
+
+Via [zouMacros](https://github.com/AndiKod/zouMacros): [AlpineJS](https://alpinejs.dev/start-here), [htmX](https://htmx.org/), [Pocketbase](https://pocketbase.io/docs/), [ChotaCSS](https://jenil.github.io/chota/#docs), [BonsaiCSS](https://www.bonsaicss.com/), [Bulma](https://bulma.io/documentation/), [Bootstrap](https://getbootstrap.com/docs/5.3/getting-started/introduction/) Comming soon: [Supabase](https://supabase.com/docs/guides/database/overview), [Planetscale](https://planetscale.com/docs).
 
 
-
-
+---
 
 ## Changelog
 
-##### 1.1.0
+#### 1.1.0
 
-- The starting project have only a base config around SCSS/Chota/JS/Hyperscript and the rest is just pre-installated, and ready to be activated if needed.
-- Example implementation of layouts/pages/partials/macros/theme-switcher/i18n/...
-- npx CLI with zou-create to scaffold a new project from the terminal
-- Some other things I'm forgetting about
+Added the `deploy:vercel`, `deploy:netlify`, `git:save` commands and fixed the postbuild script.
+
+#### 1.1.1
+
+Fixed some misspelled filenames causing troubles with Tailwind & Typescript. It's fine now.
+
+#### 1.2.0
+
+- Added FrontMatter support to the pages in the templates
+- Automatic 'database' object with the data from the frontmatter
+- Collections, Tags, limitFromTo(), withTag('something'), ... Nunjucks filters
+- Navigation objects generating navMain, navFooter,...
+- and maybe other things I can't remenber
+
+#### 1.2.2 
+
+- Fixed the commit message from the `zou git:save` command. It displayed the default message instead of the custom one, it's now back to normal.
+
+#### 1.3.0
+
+- SCSS files are now organized in 7-1 SASS inspired folders, imported into main.scss using the @forward/@use pattern. Use it as a starting point, of have fun "freestyling into the getWild zone" ;)
+
+#### 1.4.0
+
+**:: Aditions**
+
+- Oneliner options to instantly scaffold projects with flags:
+- zou create myProject -y -vsc : SCSS + JS project and open it in VSCode
+- zou create myProject -tw -vsc : Tailwind + JS project and open it in VSCode
+- zou create myProject -full -vsc : SCSS/JS/Jest/JSDoc/sassDoc project and open it in VSCode
+- Without the -vsc flag, everything is still instantly created, you can just `cd myProject`.
+- Generally speaking, JS Testing & TypeChecking plus Docs generation are added as options.
+  
+
+**:: Deprecation**
+
+- The 'Play with CDN' prompt is removed, as we can simply use {{cdn.pkg('whatever')}} from within a layout folder, and having a select form would be a nightmare to maintain. Just check [zouMacros](https://github.com/AndiKod/zouMacros) for the available packages list.
 
 

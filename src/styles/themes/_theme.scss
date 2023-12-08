@@ -1,0 +1,19 @@
+/* Theme */
+
+  // Dark theme
+body.dark {
+  --bg: linear-gradient(-45deg, #d84d23, #e2af22, #86c232);
+  --brand: var(--lime-6);
+  --surface-1: var(--sand-10);
+  --text-1: var(--sand-0);
+}
+
+// Light theme
+body.light {
+  --bg: linear-gradient(-45deg, #e7c6bb, rgb(173, 226, 188), #dcf0c1);
+  --brand: var(--lime-6);
+  --surface-1: var(--sand-0);
+  --text-1: var(--sand-10);
+}
+
+
