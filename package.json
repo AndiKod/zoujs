@@ -21,9 +21,9 @@
     "w-pages": "onchange \"./src/**/*\" -- npm run b-pages",
     "bin": "node bin/db",
     "watch": "npm-run-all --parallel w-*",
-    "build": "npm-run-all bin --parallel b-*",
+    "build": "npm-run-all copy bin --parallel b-*",
     "serve": "alive-server public",
-    "dev": "npm-run-all bin copy b-pages --parallel watch serve",
+    "dev": "npm-run-all copy bin b-pages --parallel watch serve",
     "postbuild": "postcss public/*.css -u autoprefixer cssnano -r --no-map"
   },
   "devDependencies": {
